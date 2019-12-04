@@ -140,10 +140,9 @@ module.exports = {
       console.log(files);
       console.log(fields);
 
-      const path = files.picture.path;
-      const group_name = fields.group_name;
-
-      if (path && group_name) {
+      if (files.picture && fields.group_name) {
+        const path = files.picture.path;
+        const group_name = fields.group_name;
         groupModel.findOne({ name: group_name }, (err, group) => {
           if (err) {
             res.status(500).json({ message: "Error finding group" });
