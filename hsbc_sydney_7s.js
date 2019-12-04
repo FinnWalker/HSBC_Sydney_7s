@@ -24,9 +24,11 @@ function verifyRequest(req, res, next) {
 
 const groupController = require("./controllers/groupController.js");
 app.post("/hsbc_sydney_7s/group", verifyRequest, groupController.create);
+app.post("/hsbc_sydney_7s/group/add_individual", verifyRequest, groupController.addIndividual);
 
 const individualController = require("./controllers/individualController.js");
 app.post("/hsbc_sydney_7s/individual", verifyRequest, individualController.create);
+
 
 const port = 6632;
 const server = app.listen(port, "0.0.0.0", () => {
