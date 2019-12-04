@@ -1,6 +1,8 @@
 const groupModel = require("../models/groupModel");
 const individualModel = require("../models/individualModel");
 
+const nodemailer = require("nodemailer");
+
 const sanitize = require("mongo-sanitize");
 
 async function main(path, email) {
