@@ -154,11 +154,71 @@ module.exports = {
                   (err, individual) => {
                     if (individual) {
                       main(path, individual.email).catch(console.error);
-                      res.end();
                     }
                   }
                 );
               }
+              if (group.individual_1) {
+                individualModel.findOne(
+                  { _id: group.individual_1 },
+                  (err, individual) => {
+                    if (individual) {
+                      main(path, individual.email).catch(console.error);
+                    }
+                  }
+                );
+              }
+              if (group.individual_2) {
+                individualModel.findOne(
+                  { _id: group.individual_2 },
+                  (err, individual) => {
+                    if (individual) {
+                      main(path, individual.email).catch(console.error);
+                    }
+                  }
+                );
+              }
+              if (group.individual_3) {
+                individualModel.findOne(
+                  { _id: group.individual_3 },
+                  (err, individual) => {
+                    if (individual) {
+                      main(path, individual.email).catch(console.error);
+                    }
+                  }
+                );
+              }
+              if (group.individual_4) {
+                individualModel.findOne(
+                  { _id: group.individual_4 },
+                  (err, individual) => {
+                    if (individual) {
+                      main(path, individual.email).catch(console.error);
+                    }
+                  }
+                );
+              }
+              if (group.individual_5) {
+                individualModel.findOne(
+                  { _id: group.individual_5 },
+                  (err, individual) => {
+                    if (individual) {
+                      main(path, individual.email).catch(console.error);
+                    }
+                  }
+                );
+              }
+              if (group.individual_6) {
+                individualModel.findOne(
+                  { _id: group.individual_6 },
+                  (err, individual) => {
+                    if (individual) {
+                      main(path, individual.email).catch(console.error);
+                    }
+                  }
+                );
+              }
+              res.end();
             } else {
               res.status(200).json({ message: "Group not found" });
             }
