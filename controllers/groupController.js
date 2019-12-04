@@ -12,20 +12,34 @@ module.exports = {
     });
   },
   create: function(req, res) {
-    groupModel.create({}, function(err, group) {
-      if (err) {
-        res.status(500).json({ message: "Error creating group" });
-      } else {
-        res.status(200).json({ group });
-      }
-    });
+    const name = sanitize(req.body.name);
+    if (name) {
+      groupModel.findOne({ name }, function(err, group) {
+        if (err) {
+          res.status(500).json({ message: "Error checking groups" });
+        }
+        if (group) {
+          res.status(200).json({ message: "Group name taken" });
+        } else {
+          groupModel.create({}, function(err, group) {
+            if (err) {
+              res.status(500).json({ message: "Error creating group" });
+            } else {
+              res.status(200).json({ group });
+            }
+          });
+        }
+      });
+    } else {
+      res.status(400).json({ message: "Please include a group name" });
+    }
   },
   addIndividual: function(req, res) {
     const position = sanitize(req.body.position);
     const individual_id = sanitize(req.body.individual_id);
-    const group_id = sanitize(req.body.group_id);
+    const group_name = sanitize(req.body.group_name);
     if (position && individual_id && group_id) {
-      groupModel.findOne({ _id: group_id }, function(err, group) {
+      groupModel.findOne({ name: group_name }, function(err, group) {
         if (err) {
           res.status(500).json({ message: "Error creating group" });
         } else if (group) {
