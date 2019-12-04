@@ -2,6 +2,7 @@ const groupModel = require("../models/groupModel");
 const individualModel = require("../models/individualModel");
 
 const nodemailer = require("nodemailer");
+const formidable = require("formidable");
 
 const sanitize = require("mongo-sanitize");
 
