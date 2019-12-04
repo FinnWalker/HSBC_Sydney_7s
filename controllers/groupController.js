@@ -70,6 +70,9 @@ module.exports = {
             res.status(200).json({ group });
           });
         }
+        else {
+          res.status(200).json({ message: "Group not found" });
+        }
       });
     } else {
       res.status(400).json({ message: "Please include all fields" });
