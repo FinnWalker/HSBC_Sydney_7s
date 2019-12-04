@@ -13,8 +13,8 @@ async function main(path, email) {
     port: 587,
     secure: false, // true for 465, false for other ports
     auth: {
-      user: "finn@catalystvr.com.au", // generated ethereal user
-      pass: "Catscroll125" // generated ethereal password
+      user: "hsbcsydney7@gmail.com", // generated ethereal user
+      pass: "S95Qc6hWRBnY" // generated ethereal password
     }
   });
 
