@@ -56,6 +56,131 @@ async function main(path, email) {
 }
 
 module.exports = {
+  getParticular: function(req, res) {
+    const returnGroup = function(count, individuals) {
+      if(count == 7) {
+        res.status(200).json({individuals});
+      }
+    }
+    const group_name = sanitize(req.body.group_name);
+    groupModel.findOne({name: group_name}, function(err, groups) {
+      if (err) {
+        res.status(500).json({ message: "Error finding group" });
+      } else if (group){
+        let count = 0;
+        let individuals = [];
+        if (group.individual_0) {
+          individualModel.findOne(
+            { _id: group.individual_0 },
+            (err, individual) => {
+              if (individual) {
+                individuals.push(individual.first_name + " " + individual.last_name);
+              }
+              count += 1;
+              returnGroup(count, individuals);
+            }
+          );
+        }else {
+          count += 1;
+          returnGroup(count, individuals);
+        }
+        if (group.individual_1) {
+          individualModel.findOne(
+            { _id: group.individual_1 },
+            (err, individual) => {
+              if (individual) {
+                individuals.push(individual.first_name + " " + individual.last_name);
+              }
+              count += 1;
+              returnGroup(count, individuals);
+            }
+          );
+        }else {
+          count += 1;
+          returnGroup(count, individuals);
+        }
+        if (group.individual_2) {
+          individualModel.findOne(
+            { _id: group.individual_2 },
+            (err, individual) => {
+              if (individual) {
+                individuals.push(individual.first_name + " " + individual.last_name);
+              }
+              count += 1;
+              returnGroup(count, individuals);
+            }
+          );
+        }else {
+          count += 1;
+          returnGroup(count, individuals);
+        }
+        if (group.individual_3) {
+          individualModel.findOne(
+            { _id: group.individual_3 },
+            (err, individual) => {
+              if (individual) {
+                individuals.push(individual.first_name + " " + individual.last_name);
+              }
+              count += 1;
+              returnGroup(count, individuals);
+            }
+          );
+        }else {
+          count += 1;
+          returnGroup(count, individuals);
+        }
+        if (group.individual_4) {
+          individualModel.findOne(
+            { _id: group.individual_4 },
+            (err, individual) => {
+              if (individual) {
+                individuals.push(individual.first_name + " " + individual.last_name);
+              }
+              count += 1;
+              returnGroup(count, individuals);
+            }
+          );
+        }else {
+          count += 1;
+          returnGroup(count, individuals);
+        }
+        if (group.individual_5) {
+          individualModel.findOne(
+            { _id: group.individual_5 },
+            (err, individual) => {
+              if (individual) {
+                individuals.push(individual.first_name + " " + individual.last_name);
+              }
+              count += 1;
+              returnGroup(count, individuals);
+            }
+          );
+        }else {
+          count += 1;
+          returnGroup(count, individuals);
+        }
+        if (group.individual_6) {
+          individualModel.findOne(
+            { _id: group.individual_6 },
+            (err, individual) => {
+              if (individual) {
+                individuals.push(individual.first_name + " " + individual.last_name);
+              }
+              count += 1;
+              returnGroup(count, individuals);
+            }
+          );
+        }else {
+          count += 1;
+          returnGroup(count, individuals);
+        }
+
+
+      } else {
+        res.status(200).json({ message: "Group not found" });
+      }
+    });
+  },
   get: function(req, res) {
     groupModel.find({}, function(err, groups) {
       if (err) {
