@@ -154,6 +154,7 @@ module.exports = {
                   (err, individual) => {
                     if (individual) {
                       main(path, individual.email).catch(console.error);
+                      res.end();
                     }
                   }
                 );
@@ -167,6 +168,5 @@ module.exports = {
         res.status(400).json({ message: "Please include all fields" });
       }
     });
-    res.end();
   }
 };
