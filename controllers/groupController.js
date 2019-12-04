@@ -63,7 +63,7 @@ module.exports = {
       }
     }
     const group_name = sanitize(req.body.group_name);
-    groupModel.findOne({name: group_name}, function(err, groups) {
+    groupModel.findOne({name: group_name}, function(err, group) {
       if (err) {
         res.status(500).json({ message: "Error finding group" });
       } else if (group){
