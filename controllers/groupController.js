@@ -38,10 +38,10 @@ module.exports = {
     const position = sanitize(req.body.position);
     const individual_id = sanitize(req.body.individual_id);
     const group_name = sanitize(req.body.group_name);
-    if (position && individual_id && group_id) {
+    if (position && individual_id && group_name) {
       groupModel.findOne({ name: group_name }, function(err, group) {
         if (err) {
-          res.status(500).json({ message: "Error creating group" });
+          res.status(500).json({ message: "Error finding group" });
         } else if (group) {
           switch (position) {
             case "0":
