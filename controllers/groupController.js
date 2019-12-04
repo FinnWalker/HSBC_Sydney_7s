@@ -140,33 +140,33 @@ module.exports = {
       console.log(files);
       console.log(fields);
 
-      let path = files.picture.path;
-      let group_name = fields.group_name;
+      const path = files.picture.path;
+      const group_name = fields.group_name;
 
-      groupModel.findOne({ name: group_name }, (err, group) => {
-        if (err) {
-          res.status(500).json({ message: "Error finding group" });
-        } else {
-          if (group) {
-            if (group.individual_0) {
-              individualModel.findOne(
-                { _id: group.individual_0 },
-                (err, individual) => {
-                  if (individual) {
-                    main(path, individual.email).catch(console.error);
-                  }
-                }
-              );
-            }
+      if (path && group_name) {
+        groupModel.findOne({ name: group_name }, (err, group) => {
+          if (err) {
+            res.status(500).json({ message: "Error finding group" });
           } else {
-            res.status(200).json({ message: "Group not found" });
+            if (group) {
+              if (group.individual_0) {
+                individualModel.findOne(
+                  { _id: group.individual_0 },
+                  (err, individual) => {
+                    if (individual) {
+                      main(path, individual.email).catch(console.error);
+                    }
+                  }
+                );
+              }
+            } else {
+              res.status(200).json({ message: "Group not found" });
+            }
           }
-        }
-      });
-
-      individualModel.findOne();
-
-      main(path, path2).catch(console.error);
+        });
+      } else {
+        res.status(400).json({ message: "Please include all fields" });
+      }
     });
     res.end();
   }
