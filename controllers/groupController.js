@@ -2,6 +2,15 @@ const groupModel = require("../models/groupModel");
 const sanitize = require("mongo-sanitize");
 
 module.exports = {
+  get: function(req, res) {
+    groupModel.find({}, function(err, groups) {
+      if (err) {
+        res.status(500).json({ message: "Error finding groups" });
+      } else {
+        res.status(200).json({ groups });
+      }
+    });
+  },
   create: function(req, res) {
     groupModel.create({}, function(err, group) {
       if (err) {

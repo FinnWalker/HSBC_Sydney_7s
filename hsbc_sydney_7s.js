@@ -23,6 +23,7 @@ function verifyRequest(req, res, next) {
 }
 
 const groupController = require("./controllers/groupController.js");
+app.get("/hsbc_sydney_7s/group", verifyRequest, groupController.get);
 app.post("/hsbc_sydney_7s/group", verifyRequest, groupController.create);
 app.post("/hsbc_sydney_7s/group/add_individual", verifyRequest, groupController.addIndividual);
 
