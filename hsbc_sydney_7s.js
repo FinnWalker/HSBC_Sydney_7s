@@ -27,6 +27,7 @@ app.get("/hsbc_sydney_7s/groups", verifyRequest, groupController.get);
 app.post("/hsbc_sydney_7s/group", verifyRequest, groupController.create);
 app.post("/hsbc_sydney_7s/group/add_individual", verifyRequest, groupController.addIndividual);
 app.post("/hsbc_sydney_7s/group/email", verifyRequest, groupController.email);
+app.post("/hsbc_sydney_7s/group/get", verifyRequest, groupController.getParticular);
 
 const individualController = require("./controllers/individualController.js");
 app.get("/hsbc_sydney_7s/individual", verifyRequest, individualController.get);
