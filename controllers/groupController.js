@@ -21,7 +21,7 @@ module.exports = {
         if (group) {
           res.status(200).json({ message: "Group name taken" });
         } else {
-          groupModel.create({}, function(err, group) {
+          groupModel.create({name}, function(err, group) {
             if (err) {
               res.status(500).json({ message: "Error creating group" });
             } else {
