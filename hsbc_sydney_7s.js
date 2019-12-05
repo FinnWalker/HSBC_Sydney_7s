@@ -38,3 +38,94 @@ const port = 6632;
 const server = app.listen(port, "0.0.0.0", () => {
   console.log(`App listening on port ${port}`);
 });
+
+
+
+
+/////////
+var io = require('socket.io')(server);
+
+var Player = require('./Classes/Player.js');
+var sockets = [];
+
+console.log('Server has started');
+
+var players = [];
+
+io.on('connection', function(socket) {
+    console.log('Connection established.');
+
+    var player = new Player();
+    var thisPlayerID = player.id;
+
+    players[thisPlayerID] = player;
+    sockets[thisPlayerID] = socket;
+
+    // Tell the client that this is our id for the server
+    socket.emit('register', { id: thisPlayerID });
+    socket.emit('spawn', player); // Tell myself I have spawned
+    socket.broadcast.emit('spawn', player); // Tell others I have spawned
+    
+
+    // Tell myself about everyone else in the game
+    for (var playerID in players) {
+        if (playerID != thisPlayerID) {
+            socket.emit('spawn', players[playerID]);
+        }
+    }
+
+    socket.on('', function (data) {
+       
+        socket.broadcast.emit('', player);
+    });
+
+
+    socket.on('startGame', function (data) {
+        // player.emails.length = 0;
+        console.log('startGame => GROUP NAME: ' + data.teamName);
+        player.teamName = data.teamName;
+        socket.broadcast.emit('startGame', player);
+    });
+
+    socket.on('teamSelectStarted', function (data) {
+        console.log('teamSelectStarted');
+        socket.broadcast.emit('teamSelectStarted');
+    });
+
+
+    socket.on('teamSelected', function (data) {
+        console.log('teamSelected: ' + data.teamIndex);
+        player.teamIndex = data.teamIndex;
+        socket.broadcast.emit('teamSelected', player);
+    });
+
+    socket.on('photoTaken', function (data) {
+        console.log('photoTaken');
+        socket.broadcast.emit('photoTaken');
+    });
+
+    socket.on('retakePhoto', function (data) {
+        console.log('retakePhoto');
+        socket.broadcast.emit('retakePhoto');
+    });
+
+    socket.on('gameOver', function (data) {
+        // player.emails.length = 0;
+        console.log('gameOver');
+        socket.broadcast.emit('gameOver', player);
+    });
+
+
+
+//================================================
+    // DISCONNECT FUNCTION
+    socket.on('disconnect', () => {
+        console.log('A player has disconnected');
+        delete players[thisPlayerID];
+        delete sockets[thisPlayerID];
+        socket.broadcast.emit('disconnected', player);
+    });
+});
+
+
+
