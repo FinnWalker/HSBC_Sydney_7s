@@ -43,7 +43,9 @@ const server = app.listen(port, "0.0.0.0", () => {
 
 
 /////////
-var io = require('socket.io')(server);
+const io = require("socket.io").listen(server, {
+  path: "/hsbc_sydney_7s/socket.io"
+});
 
 var Player = require('./Classes/Player.js');
 var sockets = [];
